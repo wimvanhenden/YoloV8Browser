@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yolov8</title>
+    <style>
+      /* Hide the video element */
+      #webcam {
+          display: block;
+          position: absolute;
+      }
+      #canvas {
+          display: block;
+          position: absolute;
+      }
+     </style>
+     <!-- Import @tensorflow/tfjs-core -->
+     <!--<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>-->
+     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
+
+
+     <!-- Adds the WebGL backend to the global backend registry -->
+     <!--<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>-->
+     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl/dist/tf-backend-webgl.js"></script>
+
+     <!-- Add the WebGPU backend to the global backend registry -->
+     <!--<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgpu/dist/tf-backend-webgpu.js"></script>-->
+ 
+     <!-- ONNX WEBGPU -->
+     <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.17.1/dist/ort.webgpu.min.js"> </script>
+  </head>
+  <body>
+    <video id="webcam" playsinline autoplay></video>
+    <canvas id="canvas"></canvas>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
