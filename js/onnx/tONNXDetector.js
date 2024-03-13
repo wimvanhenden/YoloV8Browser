@@ -3,7 +3,6 @@
 import labels from "./labels.json";
 import { renderBoxes } from "./renderBox";
 
-
 // JavaScript Revealing Module Pattern
 const tONNXDetector = (function () {
     // Private Properties
@@ -12,6 +11,10 @@ const tONNXDetector = (function () {
         net: null,
         inputShape: [1, 3, 640, 640],
     };
+
+    const topk = 100;
+    const iouThreshold = 0.45;
+    const scoreThreshold = 0.25;
     
     let numClass = labels.length;
 
@@ -23,18 +26,13 @@ const tONNXDetector = (function () {
 
     }
 
-
     async function publicInit() {
-
         let yolov8  =  await ort.InferenceSession.create(modelName, { executionProviders: ['webgpu'] });
         //COLD START MODEL
         const tensor = new ort.Tensor("float32",new Float32Array(model.inputShape.reduce((a, b) => a * b)),model.inputShape);
         await yolov8.run({ images: tensor });
         model.net = yolov8;
     }
-
-
-
 
     /**
      * Reveal public pointers to 
