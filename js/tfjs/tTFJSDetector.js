@@ -2,13 +2,13 @@
 //https://github.com/tensorflow/tfjs?tab=readme-ov-file
 //import * as tf from "@tensorflow/tfjs";
 //import "@tensorflow/tfjs-backend-webgl"; // set backend to webgl
-import labels from "./labels.json";
+import labels from "./labels_rim.json";
 import { renderBoxes } from "./renderBox";
 
 // JavaScript Revealing Module Pattern
 const tTFJSDetector = (function () {
     // Private Properties
-    let modelName = "audi_rim_200n_web_model";
+    let modelName = "audi_rim_400n_web_model";
     let model = {
         net: null,
         inputShape: [1, 0, 0, 3],
@@ -21,7 +21,6 @@ const tTFJSDetector = (function () {
         scores: null,
         classes: null,
         ratios: []
-
     }
 
     const preprocess = (source, modelWidth, modelHeight) => {
@@ -78,6 +77,8 @@ const tTFJSDetector = (function () {
                 .squeeze();
         }); // process boxes [y1, x1, y2, x2]
 
+       
+
         const [scores, classes] = tf.tidy(() => {
             // class scores
             const rawScores = transRes.slice([0, 0, 4], [-1, -1, numClass]).squeeze(0); // #6 only squeeze axis 0 to handle only 1 class models
@@ -86,10 +87,12 @@ const tTFJSDetector = (function () {
 
         //const nms = await tf.image.nonMaxSuppressionAsync(boxes, scores, 500, 0.45, 0.2); // NMS to filter boxes
 
-        const nms = tf.image.nonMaxSuppression(boxes, scores, 500, 0.45, 0.8); // NMS to filter boxes
+        const nms = tf.image.nonMaxSuppression(boxes, scores, 500, 0.45, 0.25); // NMS to filter boxes
         const boxes_data = boxes.gather(nms, 0).dataSync(); // indexing boxes by nms index
         const scores_data = scores.gather(nms, 0).dataSync(); // indexing scores by nms index
         const classes_data = classes.gather(nms, 0).dataSync(); // indexing classes by nms index
+
+        console.log(boxes_data);
 
         output.boxes = boxes_data;
         output.scores = scores_data;

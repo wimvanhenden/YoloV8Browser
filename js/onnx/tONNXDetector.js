@@ -1,4 +1,5 @@
 //https://github.com/Hyuto/yolov8-onnxruntime-web
+//https://github.com/akbartus/Yolov8-Object-Detection-on-Browser
 
 import labels from "./labels.json";
 import { renderBoxes } from "./renderBox";
@@ -25,6 +26,7 @@ const tONNXDetector = (function () {
         ratios:[]
 
     }
+
 
     async function publicInit() {
         let yolov8  =  await ort.InferenceSession.create(modelName, { executionProviders: ['webgpu'] });

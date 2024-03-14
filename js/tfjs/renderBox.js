@@ -1,4 +1,4 @@
-import labels from "./labels.json";
+import labels from "./labels_rim.json";
 
 /**
  * Render prediction boxes

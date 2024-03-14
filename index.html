@@ -14,6 +14,16 @@
           display: block;
           position: absolute;
       }
+
+      #image_canvas {
+          display: block;
+          position: absolute;
+      }
+
+      #test_image {
+          display: block;
+          position: absolute;
+      }
      </style>
      <!-- Import @tensorflow/tfjs-core -->
      <!--<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>-->
@@ -33,6 +43,11 @@
   <body>
     <video id="webcam" playsinline autoplay></video>
     <canvas id="canvas"></canvas>
-    <script type="module" src="js/main.js"></script>
+
+    <img id="test_image" src="1.jpg">
+    <canvas id="image_canvas"></canvas>
+    
+    <script async src="js/opencv.js" defer></script>
+    <script type="module" src="js/main.js" defer></script>
   </body>
 </html>
